@@ -15,6 +15,7 @@ import { UsersService } from './users.service';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
+  //TODO: Queries
   @Query(() => GetUserOutput)
   async getUser(@Args() getUserInput: GetUserInput): Promise<GetUserOutput> {
     return this.usersService.getUserById(getUserInput);
@@ -27,6 +28,7 @@ export class UsersResolver {
     return this.usersService.getUserByEmail(getUserByEmailInput);
   }
 
+  //TODO: Mutations
   @Mutation(() => CreateAccountOutput)
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
