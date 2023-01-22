@@ -5,6 +5,10 @@ import {
   CreateAccountInput,
   CreateAccountOutput,
 } from './dtos/create-account.dto';
+import {
+  GetUserByEmailInput,
+  GetUserByEmailOutput,
+} from './dtos/get-user-by-email.dto';
 import { GetUserInput, GetUserOutput } from './dtos/get-user.dto';
 import { User } from './entities/user.entity';
 
@@ -62,6 +66,32 @@ export class UsersService {
       return {
         ok: false,
         typename: 'GetUserByIdError',
+        message: error,
+      };
+    }
+  }
+
+  async getUserByEmail({
+    email,
+  }: GetUserByEmailInput): Promise<GetUserByEmailOutput> {
+    try {
+      const user = await this.usersRepository.findOneBy({ email });
+      if (!user) {
+        return {
+          ok: false,
+          typename: 'UserNotFoundError',
+          message: `User with email: ${email} not found`,
+        };
+      }
+
+      return {
+        ok: true,
+        user,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'GetUserByEmailError',
         message: error,
       };
     }
