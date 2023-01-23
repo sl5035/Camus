@@ -8,6 +8,10 @@ import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 
 import * as Joi from 'joi';
+import { Verification } from './users/entities/verification.entity';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from './jwt/jwt.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -44,9 +48,12 @@ import * as Joi from 'joi';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: false,
-      entities: [User],
+      entities: [User, Verification],
     }),
     UsersModule,
+    AuthModule,
+    JwtModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],

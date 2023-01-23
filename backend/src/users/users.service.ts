@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
@@ -10,42 +10,19 @@ import {
   GetUserByEmailOutput,
 } from './dtos/get-user-by-email.dto';
 import { GetUserInput, GetUserOutput } from './dtos/get-user.dto';
+import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { User } from './entities/user.entity';
+import { Verification } from './entities/verification.entity';
+
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    @InjectRepository(Verification)
+    private readonly verificationsRepository: Repository<Verification>,
   ) {}
-
-  async createAccount({
-    email,
-    username,
-    password,
-  }: CreateAccountInput): Promise<CreateAccountOutput> {
-    try {
-      const existingUser = await this.usersRepository.findOneBy({ email });
-      if (existingUser) {
-        return {
-          ok: false,
-          typename: 'NotAllowedError',
-          message: `User with email ${email} already exists`,
-        };
-      }
-
-      await this.usersRepository.save(
-        this.usersRepository.create({ email, username, password }),
-      );
-
-      return { ok: true };
-    } catch (error) {
-      return {
-        ok: false,
-        typename: 'CreateAccountError',
-        message: error,
-      };
-    }
-  }
 
   async getUserById({ userId }: GetUserInput): Promise<GetUserOutput> {
     try {
@@ -66,7 +43,7 @@ export class UsersService {
       return {
         ok: false,
         typename: 'GetUserByIdError',
-        message: error,
+        message: error.message,
       };
     }
   }
@@ -92,7 +69,83 @@ export class UsersService {
       return {
         ok: false,
         typename: 'GetUserByEmailError',
-        message: error,
+        message: error.message,
+      };
+    }
+  }
+
+  async createAccount({
+    email,
+    username,
+    password,
+  }: CreateAccountInput): Promise<CreateAccountOutput> {
+    try {
+      const existingUser = await this.usersRepository.findOneBy({ email });
+      if (existingUser) {
+        return {
+          ok: false,
+          typename: 'ExistingEmailError',
+          message: `User with email ${email} already exists`,
+        };
+      }
+
+      const user = await this.usersRepository.save(
+        this.usersRepository.create({ email, username, password }),
+      );
+
+      await this.verificationsRepository.save(
+        this.verificationsRepository.create({ user }),
+      );
+
+      return { ok: true };
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'CreateAccountError',
+        message: error.message,
+      };
+    }
+  }
+
+  private async checkPassword(
+    password: string,
+    userPassword: string,
+  ): Promise<boolean> {
+    try {
+      return await bcrypt.compare(password, userPassword);
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async login({ email, password }: LoginInput): Promise<LoginOutput> {
+    try {
+      const user = await this.usersRepository.findOne({
+        where: { email },
+        select: ['id', 'password'],
+      });
+      if (!user) {
+        return {
+          ok: false,
+          typename: 'UserNotFoundError',
+          message: `User with email: ${email} not found`,
+        };
+      }
+
+      if (!this.checkPassword(password, user.password)) {
+        return {
+          ok: false,
+          typename: 'IncorrectPasswordError',
+          message: 'Password incorrect',
+        };
+      }
+
+      //   const token =
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'LoginError',
+        message: error.message,
       };
     }
   }
