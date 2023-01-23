@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { IsEmail, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -23,6 +23,11 @@ export class User extends CoreEntity {
   @Field(() => String)
   @IsString()
   password: string;
+
+  @Column({ default: false })
+  @Field(() => Boolean)
+  @IsBoolean()
+  verified: string;
 
   @BeforeInsert()
   @BeforeUpdate()
