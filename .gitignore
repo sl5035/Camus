@@ -13,6 +13,9 @@
 /backend/yarn-error.log*
 /backend/lerna-debug.log*
 
+# envs
+/backend/.env.*
+
 # OS
 /backend/.DS_Store
 
