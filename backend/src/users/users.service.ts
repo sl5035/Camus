@@ -80,6 +80,7 @@ export class UsersService {
     email,
     username,
     password,
+    role,
   }: CreateAccountInput): Promise<CreateAccountOutput> {
     try {
       const existingUser = await this.usersRepository.findOneBy({ email });
@@ -92,7 +93,7 @@ export class UsersService {
       }
 
       const user = await this.usersRepository.save(
-        this.usersRepository.create({ email, username, password }),
+        this.usersRepository.create({ email, username, password, role }),
       );
 
       await this.verificationsRepository.save(
@@ -123,7 +124,7 @@ export class UsersService {
         };
       }
 
-      if (!this.authService.checkPassword(password, user.password)) {
+      if (!(await this.authService.checkPassword(password, user.password))) {
         return {
           ok: false,
           typename: 'IncorrectPasswordError',
