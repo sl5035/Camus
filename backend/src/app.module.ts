@@ -10,8 +10,8 @@ import { UsersModule } from './users/users.module';
 import * as Joi from 'joi';
 import { Verification } from './users/entities/verification.entity';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from './jwt/jwt.module';
 import { CommonModule } from './common/common.module';
+import { JwtModule } from './jwt/jwt.module';
 
 @Module({
   imports: [
@@ -52,8 +52,10 @@ import { CommonModule } from './common/common.module';
     }),
     UsersModule,
     AuthModule,
-    JwtModule,
     CommonModule,
+    JwtModule.forRoot({
+      privateKey: process.env.JWT_PRIVATE_KEY,
+    }),
   ],
   controllers: [],
   providers: [],

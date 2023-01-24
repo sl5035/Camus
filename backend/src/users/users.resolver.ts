@@ -1,8 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Role } from 'src/auth/role.decorator';
 import {
   CreateAccountInput,
   CreateAccountOutput,
 } from './dtos/create-account.dto';
+import { EditProfileOutput } from './dtos/edit-profile.dto';
 import {
   GetUserByEmailInput,
   GetUserByEmailOutput,
@@ -18,11 +20,13 @@ export class UsersResolver {
 
   //TODO: Queries
   @Query(() => GetUserOutput)
+  @Role(['Any'])
   async getUser(@Args() getUserInput: GetUserInput): Promise<GetUserOutput> {
     return this.usersService.getUserById(getUserInput);
   }
 
   @Query(() => GetUserByEmailOutput)
+  @Role(['Any'])
   async getUserByEmail(
     @Args() getUserByEmailInput: GetUserByEmailInput,
   ): Promise<GetUserByEmailOutput> {
@@ -44,4 +48,7 @@ export class UsersResolver {
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
     return this.usersService.login(loginInput);
   }
+
+  //   @Mutation(() => EditProfileOutput)
+  //   async editProfile();
 }

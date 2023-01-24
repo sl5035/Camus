@@ -1,5 +1,7 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtService } from 'src/jwt/jwt.service';
 import { Repository } from 'typeorm';
 import {
   CreateAccountInput,
@@ -14,14 +16,14 @@ import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { User } from './entities/user.entity';
 import { Verification } from './entities/verification.entity';
 
-import * as bcrypt from 'bcrypt';
-
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Verification)
     private readonly verificationsRepository: Repository<Verification>,
+    private readonly authService: AuthService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async getUserById({ userId }: GetUserInput): Promise<GetUserOutput> {
@@ -107,17 +109,6 @@ export class UsersService {
     }
   }
 
-  private async checkPassword(
-    password: string,
-    userPassword: string,
-  ): Promise<boolean> {
-    try {
-      return await bcrypt.compare(password, userPassword);
-    } catch (error) {
-      throw new InternalServerErrorException();
-    }
-  }
-
   async login({ email, password }: LoginInput): Promise<LoginOutput> {
     try {
       const user = await this.usersRepository.findOne({
@@ -132,7 +123,7 @@ export class UsersService {
         };
       }
 
-      if (!this.checkPassword(password, user.password)) {
+      if (!this.authService.checkPassword(password, user.password)) {
         return {
           ok: false,
           typename: 'IncorrectPasswordError',
@@ -140,7 +131,19 @@ export class UsersService {
         };
       }
 
-      //   const token =
+      const token = this.jwtService.sign(user.id);
+      if (!token) {
+        return {
+          ok: false,
+          typename: 'NoTokenError',
+          message: 'No token validated',
+        };
+      }
+
+      return {
+        ok: true,
+        token,
+      };
     } catch (error) {
       return {
         ok: false,
