@@ -1,10 +1,12 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { AuthUser } from 'src/auth/auth-user.decorator';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { Role } from 'src/auth/role.decorator';
 import {
   CreateAccountInput,
   CreateAccountOutput,
 } from './dtos/create-account.dto';
-import { EditProfileOutput } from './dtos/edit-profile.dto';
 import {
   GetUserByEmailInput,
   GetUserByEmailOutput,
@@ -33,8 +35,11 @@ export class UsersResolver {
     return this.usersService.getUserByEmail(getUserByEmailInput);
   }
 
-  //   @Query(() => User)
-  //   async myProfile(@Auth)
+  @Query(() => User)
+  @Role(['Any'])
+  async myProfile(@AuthUser() owner: User) {
+    return owner;
+  }
 
   //TODO: Mutations
   @Mutation(() => CreateAccountOutput)
