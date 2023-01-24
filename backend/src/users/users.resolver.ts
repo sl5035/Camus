@@ -36,6 +36,7 @@ export class UsersResolver {
   }
 
   @Query(() => User)
+  @UseGuards(AuthGuard)
   @Role(['Any'])
   async myProfile(@AuthUser() owner: User) {
     return owner;
