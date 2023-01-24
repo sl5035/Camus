@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthService } from 'src/auth/auth.service';
 import { JwtService } from 'src/jwt/jwt.service';
 import { Repository } from 'typeorm';
 import {
@@ -16,13 +15,15 @@ import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { User } from './entities/user.entity';
 import { Verification } from './entities/verification.entity';
 
+import * as bcrypt from 'bcrypt';
+import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
+
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Verification)
     private readonly verificationsRepository: Repository<Verification>,
-    private readonly authService: AuthService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -110,6 +111,17 @@ export class UsersService {
     }
   }
 
+  private async checkPassword(
+    password: string,
+    userPassword: string,
+  ): Promise<boolean> {
+    try {
+      return await bcrypt.compare(password, userPassword);
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
   async login({ email, password }: LoginInput): Promise<LoginOutput> {
     try {
       const user = await this.usersRepository.findOne({
@@ -124,7 +136,7 @@ export class UsersService {
         };
       }
 
-      if (!(await this.authService.checkPassword(password, user.password))) {
+      if (!(await this.checkPassword(password, user.password))) {
         return {
           ok: false,
           typename: 'IncorrectPasswordError',
@@ -149,6 +161,37 @@ export class UsersService {
       return {
         ok: false,
         typename: 'LoginError',
+        message: error.message,
+      };
+    }
+  }
+
+  async editProfile(
+    userId: number,
+    { username, password, role }: EditProfileInput,
+  ): Promise<EditProfileOutput> {
+    try {
+      const user = await this.usersRepository.findOneBy({ id: userId });
+
+      if (username) {
+        user.username = username;
+      }
+      if (password) {
+        user.password = password;
+      }
+      if (role) {
+        user.role = role;
+      }
+
+      await this.usersRepository.save(user);
+
+      return {
+        ok: true,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'EditProfileError',
         message: error.message,
       };
     }

@@ -1,8 +1,16 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Global, Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { UsersModule } from 'src/users/users.module';
+import { AuthGuard } from './auth.guard';
 
 @Module({
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
+  imports: [UsersModule],
 })
+@Global()
 export class AuthModule {}
