@@ -16,6 +16,9 @@
 # OS
 /backend/.DS_Store
 
+# envs
+/backend/.env.*
+
 # Tests
 /backend/coverage
 /backend/.nyc_output
