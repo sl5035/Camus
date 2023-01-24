@@ -16,6 +16,7 @@ import { User } from './entities/user.entity';
 import { Verification } from './entities/verification.entity';
 
 import * as bcrypt from 'bcrypt';
+import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -160,6 +161,37 @@ export class UsersService {
       return {
         ok: false,
         typename: 'LoginError',
+        message: error.message,
+      };
+    }
+  }
+
+  async editProfile(
+    userId: number,
+    { username, password, role }: EditProfileInput,
+  ): Promise<EditProfileOutput> {
+    try {
+      const user = await this.usersRepository.findOneBy({ id: userId });
+
+      if (username) {
+        user.username = username;
+      }
+      if (password) {
+        user.password = password;
+      }
+      if (role) {
+        user.role = role;
+      }
+
+      await this.usersRepository.save(user);
+
+      return {
+        ok: true,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'EditProfileError',
         message: error.message,
       };
     }
