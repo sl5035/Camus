@@ -12,8 +12,13 @@ import {
   GetUserByEmailInput,
   GetUserByEmailOutput,
 } from './dtos/get-user-by-email.dto';
+import {
+  GetUserByUsernameInput,
+  GetUserByUsernameOutput,
+} from './dtos/get-user-by-username.dto';
 import { GetUserInput, GetUserOutput } from './dtos/get-user.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
+import { VerifyEmailInput, VerifyEmailOutput } from './dtos/verify-email.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
@@ -24,18 +29,27 @@ export class UsersResolver {
   //TODO: Queries
   @Query(() => GetUserOutput)
   @UseGuards(AuthGuard)
-  @Role(['Any'])
+  @Role(['Admin'])
   async getUser(@Args() getUserInput: GetUserInput): Promise<GetUserOutput> {
     return this.usersService.getUserById(getUserInput);
   }
 
   @Query(() => GetUserByEmailOutput)
   @UseGuards(AuthGuard)
-  @Role(['Any'])
+  @Role(['Admin'])
   async getUserByEmail(
     @Args() getUserByEmailInput: GetUserByEmailInput,
   ): Promise<GetUserByEmailOutput> {
     return this.usersService.getUserByEmail(getUserByEmailInput);
+  }
+
+  @Query(() => GetUserByEmailOutput)
+  @UseGuards(AuthGuard)
+  @Role(['Admin'])
+  async getUserByUsername(
+    @Args() getUserByUsernameInput: GetUserByUsernameInput,
+  ): Promise<GetUserByUsernameOutput> {
+    return this.usersService.getUserByUsername(getUserByUsernameInput);
   }
 
   @Query(() => User)
@@ -65,5 +79,12 @@ export class UsersResolver {
     @Args('input') editProfileInput: EditProfileInput,
   ): Promise<EditProfileOutput> {
     return this.usersService.editProfile(owner.id, editProfileInput);
+  }
+
+  @Mutation(() => VerifyEmailOutput)
+  async verifyEmail(
+    @Args('input') verifyEmailInput: VerifyEmailInput,
+  ): Promise<VerifyEmailOutput> {
+    return await this.usersService.verifyEmail(verifyEmailInput);
   }
 }
