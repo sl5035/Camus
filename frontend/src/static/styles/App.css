@@ -1,5 +1,13 @@
+:root {
+  --primary-color:#729482;
+  --secondary-color: #d9e7e0;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .App-logo {
