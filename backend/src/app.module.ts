@@ -17,6 +17,7 @@ import { Verification } from './users/entities/verification.entity';
 import { CommonModule } from './common/common.module';
 import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -31,6 +32,10 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
+        JWT_PRIVATE_KEY: Joi.string().required(),
+        EMAIL_API_KEY: Joi.string().required(),
+        EMAIL_DOMAIN_NAME: Joi.string().required(),
+        FROM_EMAIL: Joi.string().required(),
       }),
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -60,6 +65,11 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
     CommonModule,
     JwtModule.forRoot({
       privateKey: process.env.JWT_PRIVATE_KEY,
+    }),
+    EmailModule.forRoot({
+      apiKey: process.env.EMAIL_API_KEY,
+      domain: process.env.EMAIL_DOMAIN_NAME,
+      fromEmail: process.env.FROM_EMAIL,
     }),
   ],
   controllers: [],
