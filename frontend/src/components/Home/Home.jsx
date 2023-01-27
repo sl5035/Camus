@@ -16,7 +16,7 @@ class Home extends Component {
           <title>Camus</title>
           <meta name="description" content="Camus" />
         </Helmet>
-        <Title className="mb-4"/>
+        <Title />
         <HomeBody />
       </div>
     );

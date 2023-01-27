@@ -9,7 +9,7 @@ class Title extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div id="title">
         <div className="nav-block" />
         <div className="title-block">
           <div className="container title">
