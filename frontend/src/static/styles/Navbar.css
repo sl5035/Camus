@@ -1,0 +1,17 @@
+@import './App.css';
+
+.nav-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 50px;
+
+    padding: 2rem 6rem;
+    background-color: var(--primary-color);
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

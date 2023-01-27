@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../static/styles/Home.css";
+import "../../static/styles/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Chevron from "../../static/images/chevron.png";
@@ -9,6 +10,7 @@ class Title extends Component {
   render() {
     return (
       <div>
+        <div className="nav-block" />
         <div className="title-block">
           <div className="container title">
             <h1 style={{ fontSize: 45, marginBottom: 0 }} className="bolder">

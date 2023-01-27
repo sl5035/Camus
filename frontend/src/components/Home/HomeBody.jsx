@@ -6,6 +6,7 @@ class HomeBody extends Component {
         return (
             <div id="body">
                 <div>hello</div>
+                <div style={{marginTop: 500, marginBottom: 500}}>temp</div>
             </div>
         );
     }
