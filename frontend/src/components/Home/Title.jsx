@@ -14,10 +14,10 @@ class Title extends Component {
         <div className="title-block">
           <div className="container title">
             <h1 style={{ fontSize: 45, marginBottom: 0 }} className="bolder">
-              Camus Trading
+              Temporary Title
             </h1>
             <h2 style={{ fontSize: 25, marginTop: 10 }} className="mb-3">
-              A Digital Marketplace
+              Temporary Subtitle
             </h2>
             <a href="#body">
             <button className="my-5 btn-primary">
