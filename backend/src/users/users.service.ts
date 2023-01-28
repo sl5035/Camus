@@ -144,6 +144,7 @@ export class UsersService {
     email,
     username,
     password,
+    university,
     role,
   }: CreateAccountInput): Promise<CreateAccountOutput> {
     try {
@@ -157,7 +158,13 @@ export class UsersService {
       }
 
       const user = await this.usersRepository.save(
-        this.usersRepository.create({ email, username, password, role }),
+        this.usersRepository.create({
+          email,
+          username,
+          password,
+          university,
+          role,
+        }),
       );
 
       const verification = await this.verificationsRepository.save(
