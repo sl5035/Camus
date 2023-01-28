@@ -6,6 +6,6 @@ import { ProductsService } from './products.service';
 export class ProductsResolver {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Query(() => GetProductOutput)
-  async getProduct() {}
+  //   @Query(() => GetProductOutput)
+  //   async getProduct() {}
 }

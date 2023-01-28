@@ -9,6 +9,7 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
+import { Universities } from 'src/common/common.enums';
 
 export enum UserRole {
   User = 'User',
@@ -16,6 +17,7 @@ export enum UserRole {
 }
 
 registerEnumType(UserRole, { name: 'UserRole' });
+registerEnumType(Universities, { name: 'Universities' });
 
 @InputType('UserInputType', { isAbstract: true })
 @ObjectType()
@@ -36,8 +38,13 @@ export class User extends CoreEntity {
   @IsString()
   password: string;
 
-  @Field(() => UserRole)
+  @Column({ type: 'enum', enum: Universities })
+  @Field(() => Universities)
+  @IsEnum(Universities)
+  university: Universities;
+
   @Column({ type: 'enum', enum: UserRole })
+  @Field(() => UserRole)
   @IsEnum(UserRole)
   role: UserRole;
 
