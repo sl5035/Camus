@@ -17,6 +17,10 @@ import {
   GetUserByUsernameOutput,
 } from './dtos/get-user-by-username.dto';
 import { GetUserInput, GetUserOutput } from './dtos/get-user.dto';
+import {
+  GetUsersByUnivsInput,
+  GetUsersByUnivsOutput,
+} from './dtos/get-users-by-univs.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { VerifyEmailInput, VerifyEmailOutput } from './dtos/verify-email.dto';
 import { User } from './entities/user.entity';
@@ -50,6 +54,15 @@ export class UsersResolver {
     @Args() getUserByUsernameInput: GetUserByUsernameInput,
   ): Promise<GetUserByUsernameOutput> {
     return this.usersService.getUserByUsername(getUserByUsernameInput);
+  }
+
+  @Query(() => GetUsersByUnivsOutput)
+  @UseGuards(AuthGuard)
+  @Role(['Admin'])
+  async getUsersByUnivs(
+    @Args() getUsersByUnivsInput: GetUsersByUnivsInput,
+  ): Promise<GetUsersByUnivsOutput> {
+    return this.usersService.getUsersByUnivs(getUsersByUnivsInput);
   }
 
   @Query(() => User)

@@ -23,6 +23,10 @@ import {
 } from './dtos/get-user-by-username.dto';
 import { EmailService } from 'src/email/email.service';
 import { VerifyEmailInput, VerifyEmailOutput } from './dtos/verify-email.dto';
+import {
+  GetUsersByUnivsInput,
+  GetUsersByUnivsOutput,
+} from './dtos/get-users-by-univs.dto';
 
 @Injectable()
 export class UsersService {
@@ -105,6 +109,32 @@ export class UsersService {
       return {
         ok: false,
         typename: 'GetUserByUsernameError',
+        message: error.message,
+      };
+    }
+  }
+
+  async getUsersByUnivs({
+    university,
+  }: GetUsersByUnivsInput): Promise<GetUsersByUnivsOutput> {
+    try {
+      const users = await this.usersRepository.findBy({ university });
+      if (!users) {
+        return {
+          ok: false,
+          typename: 'UsersNotFoundError',
+          message: `Users with univ: ${university} not found`,
+        };
+      }
+
+      return {
+        ok: true,
+        users,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        typename: 'GetUsersByUnivsError',
         message: error.message,
       };
     }
