@@ -18,6 +18,7 @@ import { CommonModule } from './common/common.module';
 import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 import { EmailModule } from './email/email.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { EmailModule } from './email/email.module';
       domain: process.env.EMAIL_DOMAIN_NAME,
       fromEmail: process.env.FROM_EMAIL,
     }),
+    ProductsModule,
   ],
   controllers: [],
   providers: [],
