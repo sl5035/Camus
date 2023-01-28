@@ -26,7 +26,7 @@
 .btn-signin {
   outline: none;
   border-radius: 50px;
-  height: 30px;
+  height: 40px;
   width: 90px;
   border: none;
   color: white;
@@ -35,7 +35,7 @@
 }
 
 .btn-signin:hover {
-  height: 33px;
+  height: 45px;
   width: 100px;
   font-size: large;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.10);
@@ -44,7 +44,7 @@
 .btn-signup {
   outline: none;
   border-radius: 50px;
-  height: 30px;
+  height: 40px;
   width: 90px;
   border: none;
   color: black;
@@ -53,7 +53,7 @@
 }
 
 .btn-signup:hover {
-  height: 33px;
+  height: 45px;
   width: 100px;
   font-size: large;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.10);
