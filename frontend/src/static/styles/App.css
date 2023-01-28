@@ -1,6 +1,7 @@
 :root {
   --primary-color:#729482;
   --secondary-color: #d9e7e0;
+  --gray-color: #474747;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
@@ -43,4 +44,49 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.btn-primary {
+  display: inline-block;
+  outline: none;
+  border-radius: 50px;
+  border: none;
+  height: 40px;
+  width: 150px;
+  cursor: pointer;
+  transition: all 0.5s;
+  box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn-primary:hover {
+  width: 160px;
+  height: 45px;
+  font-size: large;
+}
+
+.btn-primary span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn-primary span::after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.btn-primary:hover span {
+  padding-right: 10px;
+}
+
+.btn-primary:hover span::after {
+  opacity: 1;
+  right: 0;
+}
+
+.bolder {
+  font-weight: 900;
 }

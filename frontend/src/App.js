@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Home from "./components/Home/Home.jsx";
+import Footer from "./components/Navbar/Footer.jsx"
 
 function App() {
   const helmetContext = {};
@@ -13,6 +14,7 @@ function App() {
       <HelmetProvider context = {helmetContext}>
         <Navbar />
         <Home />
+        <Footer />
       </HelmetProvider>
     </div>
   );
