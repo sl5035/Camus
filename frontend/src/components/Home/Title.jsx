@@ -20,18 +20,18 @@ class Title extends Component {
               Temporary Subtitle
             </h2>
             <a href="#body">
-            <button className="my-5 btn-primary">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div className="bolder me-2">Get Started</div>
-                <img src={Chevron} style={{ height: 15 }} />
-              </div>
-            </button>
+              <button className="my-5 btn-primary">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div className="bolder me-2">Get Started</div>
+                  <img src={Chevron} style={{ height: 15 }} />
+                </div>
+              </button>
             </a>
           </div>
         </div>

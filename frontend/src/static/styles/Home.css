@@ -31,12 +31,12 @@
 
 .medium-card-size {
     border-radius: 50px!important;
-    height: 240px;
-    width: 360px;
+    height: 240px!important;
+    width: 360px!important;
     transition: all 0.5s;
 }
 
 .medium-card-size:hover {
-    border-radius: 10px!important;
-    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.3);
 }

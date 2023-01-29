@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import "../../static/styles/Home.css";
 
-import TempImg from "../../static/images/tomato.png";
+import TempImg from "../../static/images/fruitbowl.png";
 import TempImg2 from "../../static/images/watermelon.png";
+import TempImg3 from "../../static/images/fruit.png";
+import TempImg4 from "../../static/images/kiwi.png";
+import TempImg5 from "../../static/images/raspberry.png";
+import TempImg6 from "../../static/images/orange.png";
 import Divider from "../../static/images/divider.png";
 
 class HomeBody extends Component {
@@ -21,7 +25,7 @@ class HomeBody extends Component {
           <div className="d-flex mt-3">
             {/* very temporary for now, just placeholders, need to create separate card function */}
             <div className="me-5">
-              <Card.Img className="d-flex medium-card-size" src={TempImg2} />
+              <Card.Img className="d-flex medium-card-size" src={TempImg} />
               <div className="bolder d-flex pt-2 ps-3">Item Title</div>
               <div className="d-flex ps-3">Item Cost</div>
             </div>
@@ -31,24 +35,24 @@ class HomeBody extends Component {
               <div className="d-flex ps-3">Item Cost</div>
             </div>
             <div className="me-5">
-              <Card.Img className="d-flex medium-card-size" src={TempImg2} />
+              <Card.Img className="d-flex medium-card-size" src={TempImg3} />
               <div className="bolder d-flex pt-2 ps-3">Item Title</div>
               <div className="d-flex ps-3">Item Cost</div>
             </div>
           </div>
           <div className="d-flex my-3">
             <div className="me-5">
-              <Card.Img className="d-flex medium-card-size" src={TempImg2} />
+              <Card.Img className="d-flex medium-card-size" src={TempImg4} />
               <div className="bolder d-flex pt-2 ps-3">Item Title</div>
               <div className="d-flex ps-3">Item Cost</div>
             </div>
             <div className="me-5">
-              <Card.Img className="d-flex medium-card-size" src={TempImg2} />
+              <Card.Img className="d-flex medium-card-size" src={TempImg5} />
               <div className="bolder d-flex pt-2 ps-3">Item Title</div>
               <div className="d-flex ps-3">Item Cost</div>
             </div>
             <div className="me-5">
-              <Card.Img className="d-flex medium-card-size" src={TempImg2} />
+              <Card.Img className="d-flex medium-card-size" src={TempImg6} />
               <div className="bolder d-flex pt-2 ps-3">Item Title</div>
               <div className="d-flex ps-3">Item Cost</div>
             </div>
