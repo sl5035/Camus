@@ -6,10 +6,11 @@ import {
 } from '@nestjs/graphql';
 import { IsBoolean, IsEmail, IsEnum, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Universities } from 'src/common/common.enums';
+import { Product } from 'src/products/entities/product.entity';
 
 export enum UserRole {
   User = 'User',
@@ -52,6 +53,10 @@ export class User extends CoreEntity {
   @Field(() => Boolean)
   @IsBoolean()
   verified: boolean;
+
+  @OneToMany(() => Product, (product) => product.owner)
+  @Field(() => [Product])
+  products: Product[];
 
   @BeforeInsert()
   @BeforeUpdate()

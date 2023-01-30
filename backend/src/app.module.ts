@@ -19,6 +19,7 @@ import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 import { EmailModule } from './email/email.module';
 import { ProductsModule } from './products/products.module';
+import { Product } from './products/entities/product.entity';
 
 @Module({
   imports: [
@@ -60,7 +61,7 @@ import { ProductsModule } from './products/products.module';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: false,
-      entities: [User, Verification],
+      entities: [User, Verification, Product],
     }),
     UsersModule,
     CommonModule,

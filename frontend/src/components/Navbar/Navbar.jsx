@@ -1,9 +1,9 @@
-import React, { Component, useState } from "react";
-import "../../static/styles/Navbar.css";
-import Logo from "../../static/images/logo.png";
-import { render } from "@testing-library/react";
+import React, { Component, useState } from 'react';
+import '../../static/styles/Navbar.css';
+import { render } from '@testing-library/react';
+import Logo from '../../static/images/logo.png';
 
-const Navbar = () => {
+function Navbar() {
   const [shadow, setShadow] = useState(false);
   const changeShadow = () => {
     if (window.scrollY >= 80) {
@@ -13,24 +13,24 @@ const Navbar = () => {
     }
   };
 
-  window.addEventListener("scroll", changeShadow);
+  window.addEventListener('scroll', changeShadow);
 
   return (
     <div
-      className={shadow ? "nav-block sticky nav-shadow" : "nav-block sticky"}
-      style={{ justifyContent: "space-between" }}
+      className={shadow ? 'nav-block sticky nav-shadow' : 'nav-block sticky'}
+      style={{ justifyContent: 'space-between' }}
     >
-      <div className="container" style={{padding: 0}}>
+      <div className="container" style={{ padding: 0 }}>
         <div
-          className={shadow ? "nav-logo float-left" : "nav-logo"}
-          style={{ display: "inline-block" }}
+          className={shadow ? 'nav-logo float-left' : 'nav-logo'}
+          style={{ display: 'inline-block' }}
         >
           <div className="nav-container">
             <a href="#title" className="me-2">
               <img src={Logo} style={{ height: 20 }} />
             </a>
-            <div style={{ color: "white", fontWeight: 900, fontSize: 'large' }}>
-              <b>{shadow ? "Temporary Title" : null}</b>
+            <div style={{ color: 'white', fontWeight: 900, fontSize: 'large' }}>
+              <b>{shadow ? 'Temporary Title' : null}</b>
             </div>
           </div>
         </div>
@@ -47,6 +47,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Navbar;
