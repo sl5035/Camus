@@ -1,3 +1,6 @@
+/* eslint-disable quotes */
+/* eslint-disable react/state-in-constructor */
+
 import React, { Component } from "react";
 import "../../static/styles/Home.css";
 import "../../static/styles/Navbar.css";
@@ -7,6 +10,7 @@ import Chevron from "../../static/images/chevron.png";
 
 class Title extends Component {
   state = {};
+
   render() {
     return (
       <div id="title">
@@ -20,7 +24,7 @@ class Title extends Component {
               Temporary Subtitle
             </h2>
             <a href="#body">
-              <button className="my-5 btn-primary">
+              <button className="my-5 btn-primary" type="button">
                 <div
                   style={{
                     display: "flex",
@@ -29,7 +33,7 @@ class Title extends Component {
                   }}
                 >
                   <div className="bolder me-2">Get Started</div>
-                  <img src={Chevron} style={{ height: 15 }} />
+                  <img src={Chevron} style={{ height: 15 }} alt="" />
                 </div>
               </button>
             </a>
