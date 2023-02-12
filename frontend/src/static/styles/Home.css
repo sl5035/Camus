@@ -40,6 +40,13 @@
     border-radius: 10px!important;
 }
 
+.small-card-size {
+    border-radius: 30px!important;
+    height: 300px!important;
+    width: 300px!important;
+    transition: all 0.5s;
+}
+
 .full-width {
     width: 100%;
 }
