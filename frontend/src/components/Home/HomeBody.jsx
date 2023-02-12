@@ -89,6 +89,29 @@ class HomeBody extends Component {
         <div className="d-flex my-5" style={{ justifyContent: "center" }}>
           <img src={Divider} style={{ height: 12 }} alt="" />
         </div>
+        <div
+          className="ms-5 mb-5 d-flex container"
+          style={{ justifyContent: "center", textAlign: "center" }}
+        >
+          <div className="bold" style={{ fontSize: "larger", maxWidth: 500 }}>
+            Example text, a paragraph here about something or other, we can sort
+            out the details later. Maybe a statement about the mission of our
+            project and about how
+            <span className="primary-color"> Camus </span>
+            should be used or something about how it will change your shopping
+            experience.
+          </div>
+        </div>
+        <div className="secondary_block">
+          <div className="container title">
+            <h1 style={{ fontSize: 40, marginBottom: 0, color: 'black' }} className="bolder">
+              Who are we?
+            </h1>
+            <h2 style={{ fontSize: 20, marginTop: 10, color: 'black' }} className="my-3">
+              Developed by college students for college students.
+            </h2>
+          </div>
+        </div>
       </div>
     );
   }

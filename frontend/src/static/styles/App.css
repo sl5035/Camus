@@ -1,6 +1,7 @@
 :root {
   --primary-color:#729482;
   --secondary-color: #d9e7e0;
+  --ternary-color: #F9E8CB;
   --gray-color: #474747;
 }
 
@@ -88,4 +89,12 @@
 
 .bolder {
   font-weight: 900;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.primary-color {
+  color: var(--primary-color);
 }

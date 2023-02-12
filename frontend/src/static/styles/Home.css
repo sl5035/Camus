@@ -43,3 +43,30 @@
 .full-width {
     width: 100%;
 }
+
+.secondary_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+    background-color: var(--secondary-color);
+}
+
+.ternary_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 100%;
+    background-color: var(--ternary-color);
+}
+
+.white_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    background-color: white;
+}
